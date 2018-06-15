@@ -1,0 +1,227 @@
+:root {
+  --sunshine: #f7d96f;
+ }
+ body {
+   font-size: 15px;
+   font-family: 'Poppins', sans-serif;
+ }
+ 
+ button {
+   background: var(--sunshine);
+   border: 0;
+   padding: 10px 20px;
+ }
+ 
+ img {
+   max-width: 100%;
+ }
+ 
+ .wrapper {
+   display: grid;
+   grid-gap: 20px;
+ }
+ 
+ .top {
+   display:grid;
+   grid-gap:20px;
+   grid-template-areas: 
+   "hero hero cta1"
+   "hero hero cta2"
+ }
+ 
+ .hero { 
+   grid-area: hero;
+   min-height: 400px;
+   background:white url(https://cdn.pixabay.com/photo/2018/05/17/21/02/tacos-3409675_960_720.jpg);
+   background-size: cover;
+   background-position: center bottom;
+   padding: 50px;
+   display: flex;
+   flex-direction: column;
+   align-items: start;
+   padding: 5px;
+ }
+ 
+ .hero > * {
+   background: var(--sunshine);
+   color: rgb(235, 90, 114);
+   font-weight:400;
+ }
+ 
+ .hero h1 {
+   font-size: 50px;
+   font-weight: 200;
+ }
+ .cta {
+   background: var(--sunshine);
+   display: grid;
+   align-items: center;
+   justify-items: center;
+   /* align0-content forces these to squish to the center */
+   align-content: center;
+ } 
+ 
+ .cta p {
+   margin: 0;
+ }
+ .cta1 {
+   grid-area: cta1;
+ }
+ 
+ .cta2 {
+   grid-area: cta2;
+ }
+ 
+ .price {
+   font-size: 60px;
+   font-weight: 200;
+   color: rgb(235, 90, 114);
+ }
+ 
+ .menu ul {
+   display: grid;
+   grid-gap: 6px;
+   grid-template-columns: repeat(auto-fit,minmax(100px, 1fr));
+   padding:0;
+   list-style: none;
+ }
+ 
+ .menu a {
+   background: var(--sunshine);
+   text-decoration: none;
+   color:  rgb(235, 90, 114);
+   display:block;
+   text-transform: uppercase;
+   padding: 10px;
+   text-align: center;
+   font-size: 20px;
+ }
+ 
+ /* will hide the menu until screen size shrinks  */
+ [aria-controls="menu-list"] {
+   display: none;
+ }
+ 
+ .features {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+   grid-gap: 7px;
+ }
+ 
+ .feature {
+   text-align: center;
+   box-shadow: 0 0 4px  rgba(0,0,0,0.1);
+   background: rgba(241, 110, 172, 0.26);
+ }
+ 
+ .feature .icon {
+   font-size: 50px;
+ }
+ 
+ .about {
+   background: var(--sunshine);
+   padding: 20px;
+   display: grid;
+   grid-gap: 40px;
+   grid-template-columns: 600px 1fr;
+   align-items: center;
+   justify-content: center;
+   color: rgb(235, 90, 114);
+ }
+
+ .about img {
+  justify-self: right;
+ }
+ 
+ .gallery {
+   display: grid;
+   grid-template-columns: repeat(auto-fit,minmax(200px, 1fr));
+   grid-gap: 15px;
+ }
+ 
+ .gallery img {
+   width: 100%;
+ }
+ 
+ .gallery h2 {
+   grid-column: 1/-1;
+   display: grid;
+   grid-template-columns: 1fr auto 1fr;
+   align-items: center;
+   grid-gap: 20px;
+ }
+ 
+ .gallery h2:before, .gallery h2:after {
+   display: block;
+   content: '';
+   height: 10px;
+   background: linear-gradient(to var(--direction, left), var(--sunshine), transparent);
+ }
+ 
+ .gallery h2:after {
+   --direction: right;
+ }
+ 
+ /* menu will move to the top because its a direct child of the wrapper and wrapper is the first thing on our DOM order*/
+ @media (max-width: 1000px) {
+   .menu { 
+     order: -1;
+     perspective: 800px;
+   }
+   [aria-controls="menu-list"] {
+     display: block;
+     margin-bottom: 10px;
+   }
+
+   .menu ul {
+     max-height: 0;
+     overflow: hidden;
+     transform: rotateX(90deg);
+     transition: all 0.5s;
+   }
+   /* does it get set to string of true in function? isn't it a boolean? */
+   [aria-expanded = 'true'] ~ ul {
+     display: grid;
+     max-height: 500px;
+     /* to ease menu change set the parent ,menu to have perspective 800px; */
+     transform: rotateX(0);
+   }
+   /* when the aria-expanded value is false hide the X on the button */
+   [aria-expanded = 'false'] .close {
+     display: none;
+   }
+   /* when the expanded menu pops out hide show the X on the menu */
+   [aria-expanded = 'true'] .close {
+     display: inline-block;
+   }
+  /* when the expanded menu pops out hide hide the ☰ on the menu */
+   [aria-expanded = 'true'] .open {
+     display: none;
+   }
+ }
+ 
+ @media (max-width: 700px) {
+   .top {
+     grid-template-areas: 
+     "hero hero"
+     "cta1 cta2"
+   }
+
+   /* changing the about */
+   .about {
+    grid-template-columns: 1fr;
+   }
+ }
+ 
+ @media (max-width: 500px) {
+   .top {
+     grid-template-areas: 
+     "hero"
+     "hero"
+     "cta1"
+     "cta2"
+   }
+ }
+ 
+
+
